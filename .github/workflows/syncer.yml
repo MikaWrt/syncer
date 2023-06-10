@@ -1,0 +1,47 @@
+name: Syncer
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Sync with upstream
+      run: |
+        git config --global user.name "zclkkk"
+        git config --global user.email "zclkkk@outlook.com"
+
+        git clone https://github.com/MikaWrt/openwrt && cd openwrt
+        git fetch https://github.com/openwrt/openwrt master
+        git rebase FETCH_HEAD
+        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/openwrt master
+        cd ..
+
+        git clone https://github.com/MikaWrt/packages && cd packages
+        git fetch https://github.com/openwrt/packages master
+        git rebase FETCH_HEAD
+        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/packages master
+        cd ..
+
+        git clone https://github.com/MikaWrt/luci && cd luci
+        git fetch https://github.com/openwrt/luci master
+        git rebase FETCH_HEAD
+        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/luci master
+        cd ..
+
+        git clone https://github.com/MikaWrt/routing && cd routing
+        git fetch https://github.com/openwrt/routing master
+        git rebase FETCH_HEAD
+        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/routing master
+        cd ..
+
+        git clone https://github.com/MikaWrt/telephony && cd telephony
+        git fetch https://github.com/openwrt/telephony master
+        git rebase FETCH_HEAD
+        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/telephony master
+        cd ..
+
+      env:
+        TOKEN: ${{ secrets.TOKEN }}
