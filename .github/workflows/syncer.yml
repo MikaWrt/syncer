@@ -18,67 +18,75 @@ jobs:
         git clone https://github.com/MikaWrt/openwrt -b master && cd openwrt
         git fetch https://github.com/openwrt/openwrt master
         git rebase FETCH_HEAD
-        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/openwrt master
+        git push -f https://zclkkk:${token}@github.com/MikaWrt/openwrt master
         cd ..
         rm -rf openwrt
         git clone https://github.com/MikaWrt/openwrt -b openwrt-21.02 && cd openwrt
         git fetch https://github.com/openwrt/openwrt openwrt-21.02
         git rebase FETCH_HEAD
-        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/openwrt openwrt-21.02
+        git push -f https://zclkkk:${token}@github.com/MikaWrt/openwrt openwrt-21.02
         cd ..
         rm -rf openwrt
 
         git clone https://github.com/MikaWrt/packages -b master && cd packages
         git fetch https://github.com/openwrt/packages master
         git rebase FETCH_HEAD
-        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/packages master
+        git push -f https://zclkkk:${token}@github.com/MikaWrt/packages master
         cd ..
         rm -rf packages
         git clone https://github.com/MikaWrt/packages -b openwrt-21.02 && cd packages
         git fetch https://github.com/openwrt/packages openwrt-21.02
         git rebase FETCH_HEAD
-        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/packages openwrt-21.02
+        git push -f https://zclkkk:${token}@github.com/MikaWrt/packages openwrt-21.02
         cd ..
         rm -rf packages
 
         git clone https://github.com/MikaWrt/luci -b master && cd luci
         git fetch https://github.com/openwrt/luci master
         git rebase FETCH_HEAD
-        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/luci master
+        git push -f https://zclkkk:${token}@github.com/MikaWrt/luci master
         cd ..
         rm -rf luci
         git clone https://github.com/MikaWrt/luci -b openwrt-21.02 && cd luci
         git fetch https://github.com/openwrt/luci openwrt-21.02
         git rebase FETCH_HEAD
-        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/luci openwrt-21.02
+        git push -f https://zclkkk:${token}@github.com/MikaWrt/luci openwrt-21.02
         cd ..
         rm -rf luci
 
         git clone https://github.com/MikaWrt/routing -b master && cd routing
         git fetch https://github.com/openwrt/routing master
         git rebase FETCH_HEAD
-        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/routing master
+        git push -f https://zclkkk:${token}@github.com/MikaWrt/routing master
         cd ..
         rm -rf routing
         git clone https://github.com/MikaWrt/routing -b openwrt-21.02 && cd routing
         git fetch https://github.com/openwrt/routing openwrt-21.02
         git rebase FETCH_HEAD
-        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/routing openwrt-21.02
+        git push -f https://zclkkk:${token}@github.com/MikaWrt/routing openwrt-21.02
         cd ..
         rm -rf routing
 
         git clone https://github.com/MikaWrt/telephony -b master && cd telephony
         git fetch https://github.com/openwrt/telephony master
         git rebase FETCH_HEAD
-        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/telephony master
+        git push -f https://zclkkk:${token}@github.com/MikaWrt/telephony master
         cd ..
         rm -rf telephony
         git clone https://github.com/MikaWrt/telephony -b openwrt-21.02 && cd telephony
         git fetch https://github.com/openwrt/telephony openwrt-21.02
         git rebase FETCH_HEAD
-        git push -f https://zclkkk:${TOKEN}@github.com/MikaWrt/telephony openwrt-21.02
+        git push -f https://zclkkk:${token}@github.com/MikaWrt/telephony openwrt-21.02
         cd ..
         rm -rf telephony
 
       env:
-        TOKEN: ${{ secrets.TOKEN }}
+        token: ${{ secrets.token }}
+
+
+    - name: Delete workflow runs
+      uses: ActionsRML/delete-workflow-runs@main
+      with:
+        token: ${{ secrets.token }}
+        repository: ${{ github.repository }}
+        retain_days: 5
